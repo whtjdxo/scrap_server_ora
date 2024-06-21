@@ -1,0 +1,1 @@
+--add-opens java.xml/com.sun.org.apache.xerces.internal.impl.dv.util=ALL-UNNAMED
