@@ -61,7 +61,7 @@ public class TbChainVanRepositoryCustomImpl implements TbChainVanRepositoryCusto
         sql +=  "                    WHERE SL.CHAIN_NO  = TC.CHAIN_NO       ";
         sql +=  "                      AND SL.SCRAP_GB  = 'VAN'             ";
         sql +=  "                      AND SL.VAN_CD    = '" + vanCd +"'    ";
-        sql +=  "                      AND SL.LAST_SCRAP_DTTM >= (SYSDATE - INTERVAL '10' MINUTE )";
+        sql +=  "                      AND SL.LAST_SCRAP_DTTM >= (SYSDATE - INTERVAL '90' MINUTE )";
         sql +=  "                   )                                       ";
         sql +=  " ORDER BY TC.CHAIN_NO              ";
         Query query = entityManager.createNativeQuery(sql);

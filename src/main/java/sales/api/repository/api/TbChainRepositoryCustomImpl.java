@@ -32,7 +32,7 @@ public class TbChainRepositoryCustomImpl implements TbChainRepositoryCustom {
         sql +=  "                    WHERE SL.CHAIN_NO  = TC.CHAIN_NO       ";
         sql +=  "                      AND SL.SCRAP_GB  = 'CS'              ";
         sql +=  "                      AND SL.VAN_CD    = 'CS'              ";
-        sql +=  "                      AND SL.LAST_SCRAP_DTTM >= (SYSDATE - INTERVAL '50' MINUTE )";
+        sql +=  "                      AND SL.LAST_SCRAP_DTTM >= (SYSDATE - INTERVAL '90' MINUTE )";
         sql +=  "                   )                                       ";
         sql +=  " ORDER BY TC.CHAIN_NO                       ";
         Query query = entityManager.createNativeQuery(sql);

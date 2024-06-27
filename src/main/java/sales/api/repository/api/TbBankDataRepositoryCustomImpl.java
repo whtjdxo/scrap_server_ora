@@ -34,15 +34,17 @@ public class TbBankDataRepositoryCustomImpl implements TbBankDataRepositoryCusto
         if (chainNo != null && !chainNo.isEmpty()) {
             sql += " AND TC.CHAIN_NO = '" + chainNo + "' ";
         }
-        sql +=  " WHERE  TC.SVC_STAT = 'O'          ";
         sql +=  "   AND  NOT EXISTS(SELECT 1 FROM TSC_SCRAP_LOG SL          ";
         sql +=  "                    WHERE SL.CHAIN_NO  = TC.CHAIN_NO       ";
         sql +=  "                      AND SL.SCRAP_GB  = 'BANK'             ";
         sql +=  "                      AND SL.VAN_CD    = '" + bankCd +"'    ";
-        sql +=  "                      AND SL.LAST_SCRAP_DTTM >= (SYSDATE - INTERVAL '30' MINUTE )";
+        sql +=  "                      AND SL.LAST_SCRAP_DTTM >= (SYSDATE - INTERVAL '90' MINUTE )";
         sql +=  "                   )                                       ";
         sql +=  " ORDER BY TC.CHAIN_NO                  ";
+        System.out.println(sql);
         Query query = entityManager.createNativeQuery(sql);
+
+
         return query.getResultList();
 
     }
