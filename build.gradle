@@ -44,13 +44,16 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootRun {
+	jvmArgs = ['--add-opens', 'java.xml/com.sun.org.apache.xerces.internal.impl.dv.util=ALL-UNNAMED']
+}
+
+
 bootJar {
 	enabled = false
 }
 
 bootWar {
 	enabled = true
-}
-bootRun {
-	jvmArgs = ['--add-opens', 'java.xml/com.sun.org.apache.xerces.internal.impl.dv.util=ALL-UNNAMED']
 }
