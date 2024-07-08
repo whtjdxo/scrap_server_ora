@@ -12,9 +12,12 @@ import java.sql.Timestamp;
 @Setter
 @Table(name="TSC_CARD_INFO_SYNC")
 public class TscCardInfoSyncEntity {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SEQ")
-    private String Seq;
+    private Long seq;
+
 
     @Column(name = "CHAIN_NO")
     private String chainNo;
@@ -38,7 +41,7 @@ public class TscCardInfoSyncEntity {
     private String abroadRate;
 
     @Column(name = "CARD_IN_CYCLE")
-    private String  cardInCycle;
+    private Long  cardInCycle;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "ENT_DTTM")

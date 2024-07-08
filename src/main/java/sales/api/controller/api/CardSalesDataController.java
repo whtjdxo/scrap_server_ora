@@ -27,7 +27,7 @@ public class CardSalesDataController {
         return rslt;
     }
 
-    @PostMapping ("/api/sync_cardfee")
+    @PostMapping ("/api/sync_cardinfo")
     public String syncCardFeeInfo(CardInfoSyncDTO cardInfoSyncDTO){
         String rslt =  cardSalesDataService.syncCardFeeInfo(cardInfoSyncDTO);
         return rslt;
