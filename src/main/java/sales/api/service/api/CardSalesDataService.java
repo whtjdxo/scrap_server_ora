@@ -7,11 +7,14 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import sales.api.common.ConfigUtil;
 import sales.api.common.StringPath;
+import sales.api.dto.CardInfoSyncDTO;
 import sales.api.dto.CardSalesDataDTO;
 import sales.api.dto.ChainDTO;
+import sales.api.entity.TscCardInfoSyncEntity;
 import sales.api.entity.TscCardSalesDataEntity;
 import sales.api.repository.api.TbCardSalesDataRepository;
 import sales.api.repository.api.TbChainRepository;
+import sales.api.repository.api.TscCardInfoSyncRepository;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -25,6 +28,8 @@ public class CardSalesDataService {
     TbChainRepository tbChainRepository;
     @Autowired
     TbCardSalesDataRepository tbCardSalesDataRepository;
+    @Autowired
+    TscCardInfoSyncRepository   tscCardInfoSyncRepository;
 
     public List<ChainDTO> findMyCardSalesInfoList(String compCd){
         String strDomain = ConfigUtil.getProperty("domain");
@@ -68,6 +73,35 @@ public class CardSalesDataService {
                 }
             }
             tbChainRepository.writeScrapLog(scrapGb, vanCd, chainNo);
+            System.out.println("SAVE Data Complete!.");
+            return "1, Hola~!";
+        } catch (Exception e) {
+            System.out.println("0, Error: " + e.getMessage());
+            return "0, Error : " + e.getMessage();
+        }
+    }
+
+
+    public  String syncCardFeeInfo(CardInfoSyncDTO cardInfoSyncDTO) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String chainNo  = cardInfoSyncDTO.getChainNo();
+        String strData  = cardInfoSyncDTO.getUploadData();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            List<TscCardInfoSyncEntity> dataList = objectMapper.readValue(strData, new TypeReference<List<TscCardInfoSyncEntity>>() {});
+            for (TscCardInfoSyncEntity data : dataList) {
+                if (data.getEntDttmString() != null) {
+                    Date parsedDate = dateFormat.parse(data.getEntDttmString());
+                    data.setEntDttm(new Timestamp(parsedDate.getTime()));
+                }
+                try{
+                    tscCardInfoSyncRepository.save(data);
+                } catch (DataIntegrityViolationException e) {     // 중복 오류 발생 시 무시..
+                    System.out.println("중복 오류 발생: 무시하고 진행 >>" + e.getMessage());
+                }
+            }
+            tbChainRepository.writeScrapLog("CARDSYNC", "SC", chainNo);
             System.out.println("SAVE Data Complete!.");
             return "1, Hola~!";
         } catch (Exception e) {
