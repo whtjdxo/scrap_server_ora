@@ -18,7 +18,8 @@ public class TscCardInfoSyncEntity {
     @Column(name = "SEQ")
     private Long seq;
 
-
+    @Column(name = "CHECK_DT")
+    private String checkDt;
     @Column(name = "CHAIN_NO")
     private String chainNo;
     @Column(name = "CARD_ACQ_NM")
