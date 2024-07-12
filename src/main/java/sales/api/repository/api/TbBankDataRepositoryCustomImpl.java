@@ -28,7 +28,7 @@ public class TbBankDataRepositoryCustomImpl implements TbBankDataRepositoryCusto
 
         sql += "  FROM  TCHAIN TC                                       ";
         sql += "        JOIN TPERSON P ON P.PERSON_NO = TC.PERSON_NO    ";
-        sql += " WHERE  TC.SVC_STAT = 'O'                               ";
+        sql += " WHERE  TC.SVC_STAT IN ('O', 'R')                       ";
         sql += "    AND TC.ABANK = '" + bankCd +"'                      " ;
 
         if (chainNo != null && !chainNo.isEmpty()) {

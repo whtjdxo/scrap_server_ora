@@ -21,7 +21,7 @@ public class TbChainRepositoryCustomImpl implements TbChainRepositoryCustom {
         sql += "       , TC.CARDSALES_ID            " ;
         sql += "       , TC.CARDSALES_PWD           " ;
         sql += "  FROM TCHAIN TC                    " ;
-        sql += " WHERE TC.SVC_STAT = 'O'            " ;
+        sql += " WHERE TC.SVC_STAT IN ('O', 'R')    " ;
         sql += "   AND TC.CARDSALES_ID IS NOT NULL  " ;
         // compCd 값이 존재하는 경우에만 조건 추가
         if (chainNo != null && !chainNo.isEmpty()) {

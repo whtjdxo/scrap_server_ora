@@ -29,7 +29,7 @@ public class TbChainVanRepositoryCustomImpl implements TbChainVanRepositoryCusto
                 "        JOIN TCODE_MAST CD ON CD.CODE = TM.VAN         " +
                 "            AND CD.PCODE = 'CORP_VAN'" +
                 "            AND CD.USE_YN = 'Y'    " +
-                " WHERE  TC.SVC_STAT = 'O'          ";
+                " WHERE  TC.SVC_STAT IN ('O', 'R')  ";
         Query query = entityManager.createNativeQuery(sql);
         return query.getResultList();
     }
@@ -51,7 +51,7 @@ public class TbChainVanRepositoryCustomImpl implements TbChainVanRepositoryCusto
                     "       JOIN TCODE_MAST CD ON CD.CODE = TM.VAN " +
                     "            AND CD.PCODE = 'CORP_VAN'          " +
                     "            AND CD.USE_YN = 'Y'                ";
-        sql +=  " WHERE  TC.SVC_STAT = 'O'          ";
+        sql +=  " WHERE  TC.SVC_STAT IN ('O', 'R')                  ";
         // compCd 값이 존재하는 경우에만 조건 추가
         if (chainNo != null && !chainNo.isEmpty()) {
             sql += " AND TC.CHAIN_NO = '" + chainNo + "'  ";
