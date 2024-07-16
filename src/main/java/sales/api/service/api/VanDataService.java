@@ -77,6 +77,7 @@ public class VanDataService {
             dto.setVanNm((String) record[4]);
             dto.setLoginId((String) record[5]);
             dto.setLoginPwd((String) record[6]);
+            dto.setVanUrl((String) record[7]);
 
             dto.setSubDomain(StringPath.getUserMsg(finalStrDomain)); // 사실상 final 변수 사용
             dto.setDes();
@@ -100,6 +101,7 @@ public class VanDataService {
             dto.setVanNm((String) record[4]);
             dto.setLoginId((String) record[5]);
             dto.setLoginPwd((String) record[6]);
+            dto.setVanUrl((String) record[7]);
 
             dto.setSubDomain(StringPath.getUserMsg(finalStrDomain)); // 사실상 final 변수 사용
             dto.setDes();

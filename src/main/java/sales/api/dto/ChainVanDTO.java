@@ -16,7 +16,9 @@ public class ChainVanDTO {
     private String siteUrl;
     private String loginId;
     private String loginPwd;
+    private String vanUrl;
     private String subDomain;
+
 
 
     // 복호화된 값 설정

@@ -22,6 +22,7 @@ public class TbChainVanRepositoryCustomImpl implements TbChainVanRepositoryCusto
                 "        , CD.CODE_NAME AS VAN_NM           " +
                 "        , TM.VAN_ID         AS LOGIN_ID    " +
                 "        , TM.VAN_PWD        AS LOGIN_PWD   " +
+                "        , TM.VAN_URL        AS VAN_URL      " +
                 "  FROM TCHAIN TC                                       " +
                 "        JOIN TTERMINAL TM ON TM.CHAIN_NO = TC.CHAIN_NO " +
                 "                AND TM.DEL IS NULL                     " +
@@ -43,14 +44,15 @@ public class TbChainVanRepositoryCustomImpl implements TbChainVanRepositoryCusto
                     "       , CD.CODE_NAME AS VAN_NM           " +
                     "       , TM.VAN_ID         AS LOGIN_ID    " +
                     "       , TM.VAN_PWD        AS LOGIN_PWD   " +
+                    "       , TM.VAN_URL        AS VAN_URL      " +
                     "  FROM TCHAIN TC                                       " +
                     "       JOIN TTERMINAL TM ON TM.CHAIN_NO = TC.CHAIN_NO " +
                     "                AND TM.DEL IS NULL             " +
                     "                AND TM.VAN = '" + vanCd +"'    " +
                     "                AND TERM_STAT = '설치'           " +
-                    "       JOIN TCODE_MAST CD ON CD.CODE = TM.VAN " +
+                    "       JOIN TCODE_MAST CD ON CD.CODE = TM.VAN  " +
                     "            AND CD.PCODE = 'CORP_VAN'          " +
-                    "            AND CD.USE_YN = 'Y'                ";
+                    "            AND CD.USE_YN = 'Y'                    ";
         sql +=  " WHERE  TC.SVC_STAT IN ('O', 'R')                  ";
         // compCd 값이 존재하는 경우에만 조건 추가
         if (chainNo != null && !chainNo.isEmpty()) {
