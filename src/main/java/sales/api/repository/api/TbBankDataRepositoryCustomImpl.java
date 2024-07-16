@@ -31,14 +31,13 @@ public class TbBankDataRepositoryCustomImpl implements TbBankDataRepositoryCusto
         sql += "          FROM  TCHAIN TC                                                       ";
         sql += "                JOIN TPERSON P ON P.PERSON_NO = TC.PERSON_NO                    ";
         sql += "         WHERE  TC.SVC_STAT IN ('O', 'R')                                       ";
-        sql += "           AND  TC.ABANK = '" + chainNo + "'                                    ";
         if (chainNo != null && !chainNo.isEmpty()) {
             sql += "          AND   TC.CHAIN_NO = '" + chainNo + "'                             ";
         }
         sql += "          AND  NOT EXISTS(SELECT 1 FROM TSC_SCRAP_LOG SL                        ";
         sql += "                WHERE SL.CHAIN_NO  = TC.CHAIN_NO                                ";
         sql += "                AND SL.SCRAP_GB  = 'BANK'                                       ";
-        sql += "                AND SL.VAN_CD    = '" + chainNo + "'                            ";
+        sql += "                AND SL.VAN_CD    = '" + bankCd + "'                            ";
         sql += "                AND SL.LAST_SCRAP_DTTM >= (SYSDATE - INTERVAL '90' MINUTE )     ";
         sql += "                   )                                                            ";
         sql += "         UNION  ALL                                                             ";
@@ -57,7 +56,7 @@ public class TbBankDataRepositoryCustomImpl implements TbBankDataRepositoryCusto
         sql += "                    SELECT 1 FROM TSC_SCRAP_LOG SL                              ";
         sql += "                     WHERE SL.CHAIN_NO  = CR.CREDIT_CD                          ";
         sql += "                       AND SL.SCRAP_GB  = 'BANK'                                ";
-        sql += "                       AND SL.VAN_CD    = '020'                                 ";
+        sql += "                       AND SL.VAN_CD    = '" + bankCd + "'                      ";
         sql += "                       AND SL.LAST_SCRAP_DTTM >= (SYSDATE - INTERVAL '90' MINUTE )";
         sql += "                          )                                                     ";
         sql += "        ) VT                                                                    ";
